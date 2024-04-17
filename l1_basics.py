@@ -40,11 +40,14 @@ def random_mps(d: int, chi: int, n_sites: int) -> list[np.array]:
 
     tensors = [0 for _ in range(n_sites)]
 
-    tensors[0] = (np.zeros((1, d, min(chi, d))) + 1j * np.zeros((1, d, min(chi, d)))) / np.sqrt(2)
+    init_site_shape = (1, d, min(chi, d))
+    tensors[0] = (np.random.rand(init_site_shape) + 1j * np.random.rand(init_site_shape)) / np.sqrt(2)
+
     for i in range(1, n_sites):
         d_l_leg = min(chi, d**i, d ** (n_sites - i))  # Pau does: tensors[k - 1].shape[2]
         d_r_leg = min(chi, d ** (i + 1), d ** (n_sites - i - 1))  # Pau does: min(chi, tensors[k - 1].shape[2] * 2 ...
-        tensors[i] = (np.random.rand((d_l_leg, d, d_r_leg)) + 1j * np.random.rand((d_l_leg, d, d_r_leg))) / np.sqrt(2)
+        site_shape = (d_l_leg, d, d_r_leg)
+        tensors[i] = (np.random.rand(site_shape) + 1j * np.random.rand(site_shape)) / np.sqrt(2)
 
     return tensors
 
