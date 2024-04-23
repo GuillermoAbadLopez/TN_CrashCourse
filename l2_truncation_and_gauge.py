@@ -1,6 +1,5 @@
 """Module for the second set of exercises in the course."""
 
-import numpy as np
 import pytest
 
 from l1_basics import product_mps
